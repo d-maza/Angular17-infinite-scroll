@@ -1,0 +1,58 @@
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+  <div class="container ">
+    <a class="navbar-brand" href="https://www.npmjs.com/package/ngx-infinite-scroll">
+      <img src="https://www.maruishi-pharm.co.jp/assets/medical/pickup/ondansetron/img/img_scroll_arrow.png" alt="Logo" width="40"  class="d-inline-block align-text-top mx-2">
+     <span class="text-info mx-3">Ejemplo de de scroll infinito con ngInfiniteScroll</span>
+    </a>
+  </div>
+</nav>
+
+<div class="container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="50"
+(scrolled)="onScroll()" (scrolledUp)="onScrollUp()">
+<div class="row mt-2">
+  @for(personaje of characters; track personaje.id){
+    <div class="card mx-3 mt-3 shadow-lg" style="width: 18rem;">
+
+      <img [src]="personaje.image" class="card-img-center mt-2" alt="{{personaje.name}} photo">
+      <div class="card-body">
+      <h5 class="text-center mt-1 text-primary">{{personaje.name}}</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">  Especie: <span [ngClass]="liStyle">{{personaje.species}}</span> </li>
+          <li class="list-group-item">Creado: <span [ngClass]="liStyle">{{personaje.created | date}}</span> </li>
+        </ul>
+        <div class="footer">
+          <a class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="modalDetail(personaje.url)">🔎</a>
+        </div>
+      </div>
+    </div>
+  }
+  </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img [src]="personaje.image" alt="{{personaje.name}} photo" width="50px" height="50px"
+          style="border-radius: 50%;" class="mx-4">
+        <span class="modal-title fs-5 text-center" id="staticBackdropLabel">
+           {{personaje.name}}</span >
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item">{{personaje.created | date}}</li>
+          <li class="list-group-item">{{personaje.species}}</li>
+          <li class="list-group-item">{{personaje.status}}</li>
+          <li class="list-group-item">{{personaje.gender}}</li>
+          <li class="list-group-item">{{personaje.location | json }}</li>
+          <li class="list-group-item">{{personaje.origin | json }}</li>
+          <li class="list-group-item">{{personaje.episode | json }}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

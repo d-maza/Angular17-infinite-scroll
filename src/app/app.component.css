@@ -1,0 +1,11 @@
+.card {
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 8px;
+  width: calc(100% - 35px);
+  text-align: end;
+}
