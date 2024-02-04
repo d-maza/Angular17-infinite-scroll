@@ -1,6 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, retry, share, tap, throwError } from 'rxjs';
+import { Observable  } from 'rxjs';
+import { Result, Root } from '../models/character';
 
 
 @Injectable({
@@ -12,9 +13,14 @@ export class RmApiService {
 
   private readonly BASE_URL = 'https://rickandmortyapi.com/api/';
 
-  getCharacters(apiUrl: string = `${this.BASE_URL}/character`): Observable<any> {
-    return this.http.get(apiUrl);
+  getCharacters(apiUrl: string = `${this.BASE_URL}/character`): Observable<Root> {
+    return this.http.get<Root>(apiUrl);
   }
+
+  getCharacter(id: number): Observable<Result> {
+    return this.http.get<Result>(`${this.BASE_URL}/character/${id}`);
+  }
+
 }
 
 

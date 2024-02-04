@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { RmApiService } from './rm-api.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('RmApiService', () => {
   let service: RmApiService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule]
+    });
     service = TestBed.inject(RmApiService);
   });
 

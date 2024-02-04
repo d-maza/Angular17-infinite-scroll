@@ -2,7 +2,7 @@ import { Component,  OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { RmApiService } from './services/rm-api.service';
-import {  Result } from './models/character';
+import {  Result, Root } from './models/character';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
@@ -16,8 +16,8 @@ export class AppComponent implements OnInit {
 
 
   title = 'Rick';
-  serviApi = inject(RmApiService);
-  page = 0;
+  rmApiService = inject(RmApiService);
+
   nextUrl = '';
   characters: Result[] = []
   liStyle = 'fst-italic text-success fw-semibold'
@@ -25,23 +25,23 @@ export class AppComponent implements OnInit {
   personaje: Result = {} as Result;
 
   ngOnInit(): void {
-    this.getCharactersPage(this.page);
+    this.getCharactersPage();
   }
 
-  getCharactersPage(page: number) {
-    this.serviApi.getCharacters().subscribe((data: any) => {
+  getCharactersPage( ) {
+    this.rmApiService.getCharacters().subscribe((data: Root) => {
       this.characters = data.results;
       this.nextUrl = data.info.next;
     });
   }
 
   onScroll() {
-    this.serviApi.getCharacters(this.nextUrl).subscribe({
-      next: (response: any) => {
+    this.rmApiService.getCharacters(this.nextUrl).subscribe({
+      next: (response: Root ) => {
 
         if (response.info.next && response.info.next !== null) {
           this.nextUrl = response.info.next
-          Array.from(response.results).forEach((element: any) => {
+          Array.from(response.results).forEach((element: Result) => {
             this.characters = [...this.characters, element]
           })
         }
@@ -54,9 +54,10 @@ export class AppComponent implements OnInit {
     console.log('scrolled up!!');
   }
 
-  modalDetail(url: string) {
-    this.serviApi.getCharacters(url).subscribe((data: any) => {
-      this.personaje = data;
+  modalDetail(id: number) {
+
+    this.rmApiService.getCharacter(id).subscribe((data: Result) => {
+       this.personaje = data;
     });
   }
 }

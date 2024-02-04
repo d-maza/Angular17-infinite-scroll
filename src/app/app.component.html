@@ -1,8 +1,10 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
   <div class="container ">
     <a class="navbar-brand" href="https://www.npmjs.com/package/ngx-infinite-scroll">
       <img src="https://www.maruishi-pharm.co.jp/assets/medical/pickup/ondansetron/img/img_scroll_arrow.png" alt="Logo" width="40"  class="d-inline-block align-text-top mx-2">
-     <span class="text-info mx-3">Ejemplo de de scroll infinito con ngInfiniteScroll</span>
+     <span id="title" class="text-info mx-3">Ejemplo de de scroll infinito con ngInfiniteScroll</span>
     </a>
   </div>
 </nav>
@@ -21,7 +23,7 @@
           <li class="list-group-item">Creado: <span [ngClass]="liStyle">{{personaje.created | date}}</span> </li>
         </ul>
         <div class="footer">
-          <a class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="modalDetail(personaje.url)">🔎</a>
+          <button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="modalDetail(personaje.id)">🔎ver</button>
         </div>
       </div>
     </div>
